@@ -2,6 +2,7 @@
   "name": "todo-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
@@ -58,6 +59,5 @@
   },
   "devDependencies": {
     "eslint-plugin-react-hooks": "^4.6.0"
-  },
-  "proxy": "http://localhost:3000"
+  }
 }
