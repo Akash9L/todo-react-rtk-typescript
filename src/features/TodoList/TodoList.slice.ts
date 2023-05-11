@@ -1,23 +1,31 @@
-import axios from 'axios'
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { TodoTask } from 'features/Task/Task.dto'
+import { getTodos } from 'API'
+import { Task } from 'type.dto'
 
 type InitialState = {
-    loading: boolean
-    todoList: TodoTask[]
-    error: string
+    loading: boolean;
+    todoList: Task[];
+    filteredSet: {
+        filter: string;
+        searchString: string;
+        filteredTodos: Task[];
+    }
+    error: string;
 }
 const initialState: InitialState = {
     loading: false,
     todoList: [],
+    filteredSet: {
+        filter: '',
+        filteredTodos: [],
+        searchString: '',
+    },
     error: ''
 }
 
 // Generates pending, fulfilled and rejected action types
 export const fetchTodoList = createAsyncThunk('todo/fetchTodoList', () => {
-    return axios
-        .get('http://localhost:3001/api')
-        .then(response => response.data)
+    return getTodos()
 })
 
 const todoSlice = createSlice({
@@ -30,7 +38,7 @@ const todoSlice = createSlice({
         })
         builder.addCase(
             fetchTodoList.fulfilled,
-            (state, action: PayloadAction<TodoTask[]>) => {
+            (state, action: PayloadAction<Task[]>) => {
                 state.loading = false
                 state.todoList = action.payload
                 state.error = ''

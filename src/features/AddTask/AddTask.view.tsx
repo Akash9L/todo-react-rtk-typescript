@@ -1,10 +1,10 @@
 import { useAppDispatch } from "app/hooks";
-import axios from "axios";
-import { TodoListStatusEnum, TodoTask } from "features/Task/Task.dto";
 import { fetchTodoList } from "features/TodoList/TodoList.slice";
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import "./AddTask.scss";
+import { addTodo } from "API";
+import { Task, TaskStatusEnum } from "type.dto";
 
 export type IAddTaskViewProps = {
   handleClose: () => void;
@@ -12,10 +12,10 @@ export type IAddTaskViewProps = {
 };
 
 const AddTaskView: React.FC<IAddTaskViewProps> = (addTaskViewProp) => {
-  const defaultTodoTask: TodoTask = {
+  const defaultTodoTask: Omit<Task, "id"> = {
     name: "",
     description: "",
-    status: "COMPLETED" as TodoListStatusEnum,
+    status: TaskStatusEnum.TODO,
   };
   const [todoTask, setTodoTask] = useState(defaultTodoTask);
 
@@ -23,20 +23,15 @@ const AddTaskView: React.FC<IAddTaskViewProps> = (addTaskViewProp) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // 👇️ prevent page refresh
-    console.log(`Current Form Data:`, todoTask);
     event.preventDefault();
-    axios
-      .post("http://localhost:3001/api", todoTask)
+    addTodo(todoTask)
       .then((response) => {
-        const responseTodoTask = response.data as TodoTask;
-        console.log(`[AddNewTask] Added new Task:`, responseTodoTask);
         alert(`New Task Added`);
         dispatch(fetchTodoList());
         setTodoTask(defaultTodoTask);
       })
       .catch((error) => {
-        console.log(`[AddNewTask] Error:`, error);
-        alert(`New Task Added ${error.message}`);
+        alert(`${error.message}`);
       });
   };
 
@@ -50,7 +45,7 @@ const AddTaskView: React.FC<IAddTaskViewProps> = (addTaskViewProp) => {
         <Modal.Header closeButton>
           <Modal.Title>New Task</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="p-5 d-flex justify-content-center align-items-center">
+        <Modal.Body className="p-3 row">
           <div id="alert-holder"></div>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicName">
