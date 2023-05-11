@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Task, TaskStatusEnum } from 'type.dto';
 
-const baseUrl: string = 'http://localhost:3001/api/task'
+const baseUrl: string = process.env.SERVER_BASE_URL || '';
 
 export async function getTodos(): Promise<Task[]> {
     try {
