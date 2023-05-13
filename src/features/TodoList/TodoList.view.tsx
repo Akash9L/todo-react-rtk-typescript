@@ -9,7 +9,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 export function TodoList() {
   //Open show Add Task Modal
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const handleOpen = () => setShow(true);
   const handleClose = () => setShow(false);
 

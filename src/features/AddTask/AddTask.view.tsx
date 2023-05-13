@@ -41,6 +41,7 @@ const AddTaskView: React.FC<IAddTaskViewProps> = (addTaskViewProp) => {
         id="AddTaskModal"
         show={addTaskViewProp.show}
         onHide={addTaskViewProp.handleClose}
+        animation={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>New Task</Modal.Title>
