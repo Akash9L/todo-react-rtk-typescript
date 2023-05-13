@@ -54,6 +54,8 @@ const TaskView: React.FC<Props> = ({ task }) => {
         </h4> */}
         <h4 className="ms-2">
           <AiOutlineMinusCircle
+            className="icon-button"
+            color="maroon"
             onClick={handleDeleteTask}
           ></AiOutlineMinusCircle>
         </h4>
