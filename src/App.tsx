@@ -1,5 +1,5 @@
-import './App.css';
-import { TodoList } from 'features/TodoList/TodoList.view';
+import "./App.scss";
+import { TodoList } from "features/TodoList/TodoList.view";
 
 function App() {
   return (
