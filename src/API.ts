@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { Task, TaskStatusEnum } from 'type.dto';
 
-const baseUrl: string = process.env.SERVER_BASE_URL || '';
-console.log(`Setting SERVER_BASE_URL: `, baseUrl);
+const baseUrl: string = (process.env.REACT_APP_SERVER_BASE_URL || '').concat('/api/task');
+console.log(`Setting REACT_APP_SERVER_BASE_URL: `, baseUrl);
 
 export async function getTodos(): Promise<Task[]> {
     try {
+        console.log(`[API_CALL] GET ${baseUrl}: `);
         const todos = await axios.get(
             baseUrl
         )
@@ -23,6 +24,9 @@ export async function getTodos(): Promise<Task[]> {
 
 export async function addTodo(formData: Omit<Task, 'id'>): Promise<Task> {
     try {
+        console.log(`[API_CALL] GET ${baseUrl}: `, {
+            body: formData
+        });
         const saveTodo = await axios.post(
             baseUrl,
             formData
@@ -42,14 +46,17 @@ export async function updateTodo(
         const todoUpdate: Pick<Task, 'status'> = {
             status: TaskStatusEnum.COMPLETED,
         }
+        console.log(`[API_CALL] GET ${baseUrl}/${todo.id}: `, {
+            body: todoUpdate
+        });
         const updatedTodo = await axios.patch(
             `${baseUrl}/${todo.id}`,
             todoUpdate
         )
-        console.log(`[API_SUCCESS] GET ${baseUrl}: `, updatedTodo.data);
+        console.log(`[API_SUCCESS] GET ${baseUrl}/${todo.id}: `, updatedTodo.data);
         return updatedTodo.data;
     } catch (error) {
-        console.error(`[API_ERROR] PATCH ${baseUrl}/${todo.id}`, error)
+        console.error(`[API_ERROR] PATCH ${baseUrl}/${todo.id}: `, error)
         throw error;
     }
 }
@@ -58,10 +65,11 @@ export async function deleteTodo(
     id: string
 ): Promise<any> {
     try {
+        console.log(`[API_CALL] GET ${baseUrl}/${id}: `);
         const deletedTodo = await axios.delete(
             `${baseUrl}/${id}`
         )
-        console.log(`[API_SUCCESS] GET ${baseUrl}: `, deletedTodo.data);
+        console.log(`[API_SUCCESS] GET ${baseUrl}/${id}: `, deletedTodo.data);
         return deletedTodo.data;
     } catch (error) {
         console.error(`[API_ERROR] DELETE ${baseUrl}/${id}`, error)
