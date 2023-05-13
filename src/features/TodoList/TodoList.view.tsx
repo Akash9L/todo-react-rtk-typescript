@@ -4,8 +4,9 @@ import { fetchTodoList } from "./TodoList.slice";
 import { TaskView } from "features/Task/Task.view";
 import { AddTaskView } from "features/AddTask/AddTask.view";
 import "./Todo.scss";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { AiOutlinePlus } from "react-icons/ai";
+import { updateFilters } from "./TodoList.slice";
 
 export function TodoList() {
   //Open show Add Task Modal
@@ -20,9 +21,30 @@ export function TodoList() {
 
   const todoSlice = useAppSelector((state) => state.todo);
 
+  function handleSearchStringChange(event: React.ChangeEvent<any>): void {
+    dispatch(
+      updateFilters({
+        searchString: event.target.value || "",
+        status: todoSlice.filters.status,
+      })
+    );
+  }
+
   return (
     <div>
       <h1 className="mt-5">List of Tasks</h1>
+
+      <div>
+        <Form.Control
+          type="search"
+          placeholder="Search by name"
+          className="me-2"
+          aria-label="Search"
+          value={todoSlice.filters.searchString}
+          onChange={handleSearchStringChange}
+        />
+        {todoSlice.filters.searchString}
+      </div>
 
       {/* Show Task */}
       {todoSlice.loading && <div>Loading...</div>}
@@ -42,8 +64,8 @@ export function TodoList() {
             </Button>
           </div>
         </div>
-        {!todoSlice.loading && todoSlice.todoList.length
-          ? todoSlice.todoList.map((task) =>
+        {!todoSlice.loading && todoSlice.filteredTodos.length
+          ? todoSlice.filteredTodos.map((task) =>
               TaskView({
                 task,
               })
