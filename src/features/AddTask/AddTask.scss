@@ -1,0 +1,8 @@
+@media only screen and (max-width: 600px) {
+    #AddTaskModal {
+        // background-color: white;
+        margin: 0;
+        top: 100%;
+        transform: translateY(-100%);
+    }
+}

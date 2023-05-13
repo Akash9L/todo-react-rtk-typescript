@@ -38,7 +38,7 @@ const AddTaskView: React.FC<IAddTaskViewProps> = (addTaskViewProp) => {
   return (
     <div>
       <Modal
-        className="AddTaskModal"
+        id="AddTaskModal"
         show={addTaskViewProp.show}
         onHide={addTaskViewProp.handleClose}
       >
@@ -52,6 +52,7 @@ const AddTaskView: React.FC<IAddTaskViewProps> = (addTaskViewProp) => {
               <Form.Label>Title</Form.Label>
               <Form.Control
                 required
+                autoFocus
                 type="text"
                 placeholder="What do you want to do?"
                 value={todoTask.name}

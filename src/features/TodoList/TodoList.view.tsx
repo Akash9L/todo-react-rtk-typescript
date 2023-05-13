@@ -9,7 +9,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 export function TodoList() {
   //Open show Add Task Modal
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const handleOpen = () => setShow(true);
   const handleClose = () => setShow(false);
 
@@ -22,7 +22,7 @@ export function TodoList() {
 
   return (
     <div>
-      <h1>List of Tasks</h1>
+      <h1 className="mt-5">List of Tasks</h1>
 
       {/* Show Task */}
       {todoSlice.loading && <div>Loading...</div>}
