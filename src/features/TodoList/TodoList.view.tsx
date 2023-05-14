@@ -64,45 +64,51 @@ export function TodoList() {
   }
 
   return (
-    <div>
-      <h1 className="mt-5">List of Tasks</h1>
-      <div className="row px-5">
-        <div className="col-md-8 py-2">
-          <Form.Control
-            type="search"
-            placeholder="Search by Task Name"
-            className="me-2"
-            aria-label="Search"
-            value={todoSlice.filters.searchString}
-            onChange={handleSearchStringChange}
-          />
-          {todoSlice.filters.searchString}
+    // Adding opactiy as quick hack only for style preference. Wanted the colors to look more subtle
+    <div style={{ opacity: "85%" }}>
+      <header className="pt-5">
+        <div className="d-flex flex-column flex-md-row px-5 justify-content-center">
+          <h1>
+            <strong>
+              <span className="text-primary">TODO</span> LIST
+            </strong>
+          </h1>
+          <div className="flex-fill mx-md-5 py-2">
+            <Form.Control
+              type="search"
+              placeholder="SEARCH BY TASK NAME . . ."
+              className="me-2"
+              aria-label="Search"
+              value={todoSlice.filters.searchString}
+              onChange={handleSearchStringChange}
+            />
+          </div>
+          <div className="py-2">
+            <Form.Check
+              inline
+              type="switch"
+              id="pending-switch"
+              label="PENDING"
+              value={TaskStatusEnum.TODO}
+              onChange={onStatusFilterChange}
+              checked={todoSlice.filters.status.some(
+                (item) => item === TaskStatusEnum.TODO
+              )}
+            />
+            <Form.Check
+              inline
+              type="switch"
+              id="completed-switch"
+              label="COMPLETED"
+              value={TaskStatusEnum.COMPLETED}
+              onChange={onStatusFilterChange}
+              checked={todoSlice.filters.status.some(
+                (item) => item === TaskStatusEnum.COMPLETED
+              )}
+            />
+          </div>
         </div>
-        <div className="col-md-4 py-2">
-          <Form.Check
-            inline
-            type="switch"
-            id="pending-switch"
-            label="PENDING"
-            value={TaskStatusEnum.TODO}
-            onChange={onStatusFilterChange}
-            checked={todoSlice.filters.status.some(
-              (item) => item === TaskStatusEnum.TODO
-            )}
-          />
-          <Form.Check
-            inline
-            type="switch"
-            id="completed-switch"
-            label="COMPLETED"
-            value={TaskStatusEnum.COMPLETED}
-            onChange={onStatusFilterChange}
-            checked={todoSlice.filters.status.some(
-              (item) => item === TaskStatusEnum.COMPLETED
-            )}
-          />
-        </div>
-      </div>
+      </header>
 
       {/* Show Task */}
       {todoSlice.loading && <div>Loading...</div>}

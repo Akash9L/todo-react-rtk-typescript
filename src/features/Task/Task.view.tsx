@@ -26,14 +26,16 @@ const TaskView: React.FC<Props> = ({ task }) => {
   };
 
   const handleDeleteTask = () => {
-    deleteTodo(task.id.toString())
-      .then((response) => {
-        alert(`Task Deleted Successfully`);
-        dispatch(fetchTodoList());
-      })
-      .catch((error) => {
-        alert(`${error.message}`);
-      });
+    if (window.confirm("Delete the item?")) {
+      deleteTodo(task.id.toString())
+        .then((response) => {
+          alert(`Task Deleted Successfully`);
+          dispatch(fetchTodoList());
+        })
+        .catch((error) => {
+          alert(`${error.message}`);
+        });
+    }
   };
 
   return (
@@ -63,7 +65,7 @@ const TaskView: React.FC<Props> = ({ task }) => {
       <div className="name text-uppercase py-3">
         <strong>{task.name}</strong>
       </div>
-      <div className="description flex-fill h6 pt-2 border-top">
+      <div className="description text-secondary flex-fill h6 pt-2 border-top">
         {task.description}
       </div>
       {task.status === TaskStatusEnum.TODO ? (
