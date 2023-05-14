@@ -76,3 +76,17 @@ export async function deleteTodo(
         throw error;
     }
 }
+
+export async function pingServer(): Promise<string> {
+    try {
+        console.log(`[HEALTH_CHECK_CALL] GET ${baseUrl}/health-check: `);
+        const healthCheckResponse = await axios.get(
+            `${baseUrl}/health-check`
+        )
+        console.log(`[HEALTH_CHECK_SUCCESS] GET ${baseUrl}/health-check: `, healthCheckResponse.data);
+        return healthCheckResponse.data as string;
+    } catch (error) {
+        console.error(`[HEALTH_CHECK_ERROR] GET ${baseUrl}/health-check: `, error)
+        throw error;
+    }
+}
