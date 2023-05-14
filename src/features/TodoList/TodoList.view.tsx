@@ -67,16 +67,16 @@ export function TodoList() {
     // Adding opactiy as quick hack only for style preference. Wanted the colors to look more subtle
     <div style={{ opacity: "85%" }}>
       <header className="pt-5">
-        <div className="d-flex flex-column flex-md-row px-5 justify-content-center">
-          <h1>
+        <div className="d-flex flex-column flex-md-row justify-content-center">
+          <h1 className=" px-5">
             <strong>
               <span className="text-primary">TODO</span> LIST
             </strong>
           </h1>
-          <div className="flex-fill mx-md-5 py-2">
+          <div className="flex-fill mx-md-5 py-2  px-5 text-align-center">
             <Form.Control
               type="search"
-              placeholder="SEARCH BY TASK NAME . . ."
+              placeholder="Search by Task name . . ."
               className="me-2"
               aria-label="Search"
               value={todoSlice.filters.searchString}
