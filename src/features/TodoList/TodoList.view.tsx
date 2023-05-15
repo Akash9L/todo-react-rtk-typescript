@@ -108,6 +108,13 @@ export function TodoList() {
             />
           </div>
         </div>
+        <div>
+          <strong>
+            {todoSlice.filters.searchString
+              ? `Search results for: "${todoSlice.filters.searchString}"`
+              : ""}
+          </strong>
+        </div>
       </header>
 
       {/* Show Task */}
